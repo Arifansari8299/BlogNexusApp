@@ -30,3 +30,5 @@ coverage/
 # Optional: ignore package-lock or yarn.lock in frontend/backend if you manage them separately
 #frontend/package-lock.json
 #backend/package-lock.json
+
+doc.txt
