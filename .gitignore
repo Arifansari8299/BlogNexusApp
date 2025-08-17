@@ -11,6 +11,8 @@ yarn-error.log*
 # Environment variables
 Frontend/.env
 Backend/.env
+**/.env
+
 
 # Build output
 frontend/build/
