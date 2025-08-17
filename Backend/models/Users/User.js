@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     lastlogin:{
         type:Date,
-        default:Date.now
+        default:Date.now()
     },
     isVerified:{
         type:Boolean,
@@ -56,4 +56,19 @@ const userSchema = new mongoose.Schema({
         enum:["male","female","prefer not to say","non-binary"]
       },
     //   other properties will deal with relationship
-});
+    profileViewers:[{type:mongoose.Schema.Types.ObjectId, ref:"User"}],
+    followers:[{type:mongoose.Schema.Types.ObjectId, ref:"User"}],
+    following:[{type:mongoose.Schema.Types.ObjectId, ref:"User"}],
+    blockedUsers:[{type:mongoose.Schema.Types.ObjectId, ref:"User"}],
+    posts:[{type:mongoose.Schema.Types.ObjectId, ref:"Post"}],
+    likedposts:[{type:mongoose.Schema.Types.ObjectId, ref:"Post"}],
+    passwordResetToken:{type:String},
+    passwordResetExpires:{ type:Date},
+    accountVerificationToken:{type:String},
+    accountVerificationExpires:{type:Date}
+},{timestamps:true});
+
+//! convert schema to model
+const User = mongoose.model("User",userSchema);
+
+module.exports = User;
