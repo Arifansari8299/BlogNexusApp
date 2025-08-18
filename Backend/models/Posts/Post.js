@@ -16,7 +16,43 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-   
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+    },
+    shares:{
+        type:Number,
+        default:0
+    },
+    postViews:{
+        type:Number,
+        default:0
+    },
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category",
+        required:true
+    },
+    scheduledPublished:{
+        type:Date,
+        default:null
+    },
+    likes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        
+    }],
+    dislikes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        
+    }],
+    comments:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Comments"
+    }],
+    
 },{timestamps:true});
 
 //! convert schema to model
