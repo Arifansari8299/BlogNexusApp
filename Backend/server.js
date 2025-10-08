@@ -8,6 +8,10 @@ const app = express();
 //! load the environment variable
 dotenv.config();
 
+// app.get("/",(req,res)=>{
+//     res.send("hello")
+// })
+
 //? setup the Router 
 app.use("/",usersRouter)
 
