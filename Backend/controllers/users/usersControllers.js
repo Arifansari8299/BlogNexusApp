@@ -1,28 +1,61 @@
 //@desc Register new user
 //@route POST /api/v1/users/register
 //@access public 
-const User = require("../../models/Users/User")
+
+const User = require("../../models/Users/User");
+const bcrypt = require('bcryptjs');
+
 exports.register = async (req, res) => {
-    // res.json({message:"User registration conroller executed!"})
-    try{
-       const { username, email, password } = req.body;
-       const user = await User.findOne({username});
-       if(user){
-        throw new Error("User Already Existing");
-       }
-       const newUser = new User({ username, email, password });
-       await newUser.save();
-       res.json({
-        status: "success",
-        message: "User resistered successfully",
-        _id: newUser?.id,
-        username:newUser?.username,
-        email: newUser?.email,
-        role: newUser?.role,
-       })
+  try {
+    const { username, email, password } = req.body;
+
+    // Basic validation
+    if (!username || !email || !password) {
+      return res.status(400).json({
+        status: "Failed",
+        message: "All fields (username, email, password) are required",
+      });
     }
-    catch(error){
-      res.json({ status: "Failed", message: error?.message});
+
+    // Check if user exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(409).json({
+        status: "Failed",
+        message: "User already exists",
+      });
     }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create and save user
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    return res.status(201).json({
+      status: "success",
+      message: "User registered successfully",
+      _id: newUser._id,
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role,
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      status: "Failed",
+      message: error.message || "Something went wrong",
+    });
+  }
 };
+
+//@desc Login  user
+//@route GET /api/v1/users/login
+//@access public 
 
