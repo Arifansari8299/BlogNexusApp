@@ -59,3 +59,33 @@ exports.register = async (req, res) => {
 //@route GET /api/v1/users/login
 //@access public 
 
+exports.login = async(req, res) => {
+    try{
+        const { username, password } = req.body;
+        // validate input
+        if(!username || !password){
+            return res.status(400).json({
+                status:"Failed",
+                message:"username and password are required"
+            })
+        }
+
+        // Find user
+        const user = await User.findOne({ username });
+        if(!user){
+            throw new Error("Invalid credentials")
+        }
+        // compare password
+        const isMatch = await bcrypt.compare(password, user?.password)
+        if(!isMatch){
+            throw new Error("Invalid credentials")
+        }
+        user.lastlogin = new Date();
+        await user.save();
+        res.json({ status: "success", user })
+ 
+    }
+    catch(err){
+      res.json({status:"failed", message: err?.message})
+    }
+}
