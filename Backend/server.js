@@ -1,12 +1,16 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const usersRouter = require("./routes/users/userRoutes")
+const connectDB = require("./config/db");
 
 //! Create an express application
 const app = express();
 
 //! load the environment variable
 dotenv.config();
+
+//! Establish connection to MongoDB;
+connectDB();
 
 // app.get("/",(req,res)=>{
 //     res.send("hello")
