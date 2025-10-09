@@ -12,6 +12,10 @@ dotenv.config();
 //! Establish connection to MongoDB;
 connectDB();
 
+//! Set up the middleware
+app.use(express.json())
+
+
 // app.get("/",(req,res)=>{
 //     res.send("hello")
 // })
