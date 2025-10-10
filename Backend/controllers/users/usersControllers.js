@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
 };
 
 //@desc Login  user
-//@route GET /api/v1/users/login
+//@route POST /api/v1/users/login
 //@access public 
 
 exports.login = async(req, res) => {
@@ -97,3 +97,7 @@ exports.login = async(req, res) => {
       res.json({status:"failed", message: err?.message})
     }
 }
+
+//@desc Profile  view
+//@route GET /api/v1/users/profile/:id
+//@access public 
