@@ -100,4 +100,14 @@ exports.login = async(req, res) => {
 
 //@desc Profile  view
 //@route GET /api/v1/users/profile/:id
-//@access public 
+//@access private
+
+exports.getProfile = async(req, res) => {
+  try{
+      res.json({status:"success",message:"Profile fetched",data:"dummy user"});
+  }
+  catch(error){
+    res.json({status:"error",message:error?.message});
+  }
+}
+
