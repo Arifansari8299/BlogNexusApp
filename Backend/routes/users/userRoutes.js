@@ -3,8 +3,8 @@ const { register, login, getProfile } = require("../../controllers/users/usersCo
 
 const usersRouter = express.Router();
 
-usersRouter.post('/api/v1/users/registration', register)
-usersRouter.post('/api/v1/users/login',login)
-usersRouter.get('/api/v1/users/profile/:id',getProfile)
+usersRouter.post('/registration', register)
+usersRouter.post('/login',login)
+usersRouter.get('/profile/:id',getProfile)
 
 module.exports = usersRouter;

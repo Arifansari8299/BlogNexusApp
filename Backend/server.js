@@ -21,7 +21,7 @@ app.use(express.json())
 // })
 
 //? setup the Router 
-app.use("/",usersRouter)
+app.use("/api/v1/users",usersRouter)
 
 const PORT = process.env.PORT || 9080
 app.listen(PORT,()=>{
